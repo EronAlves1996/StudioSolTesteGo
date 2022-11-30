@@ -2,3 +2,10 @@ type Rule {
   rule: String!
   value: Int!
 }
+
+type Query {
+  verify(password: String!, rules: [Rule!]){
+    verify: Bool
+    noMatch: [String]
+  }
+}
