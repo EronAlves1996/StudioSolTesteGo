@@ -16,7 +16,9 @@ func TestValidators(t *testing.T) {
 	})
 
 	t.Run("test minSize with 10 characters", func(t *testing.T) {
-
+		got := Validators["minSize"]("with10Chars", 10)
+		expect := true
+		assert(got, expect, t)
 	})
 }
 
