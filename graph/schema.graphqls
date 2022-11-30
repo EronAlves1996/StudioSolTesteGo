@@ -1,11 +1,13 @@
-type Rule {
+input Rule {
   rule: String!
   value: Int!
 }
 
+type Return {
+  verify: Boolean
+  noMatch: [String]
+}
+
 type Query {
-  verify(password: String!, rules: [Rule!]){
-    verify: Bool
-    noMatch: [String]
-  }
+  verify(password: String!, rules: [Rule!]): Return
 }
