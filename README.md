@@ -47,9 +47,42 @@ type Return {
 
 Este schema está descrito melhor no arquivo /graph/schema.graphqls. O servidor irá receber esta requisição e passar a informação dos parâmetros `password` e `rules` para a função ProcessPassword, dentro do package `services`.
 
-2. e irá verificar a senha contra um Map com funções o qual denominei Validators. Essa função são executadas e, se retornarem False, adiciona-se o nome da rule na slice do noMatch. Para cada rule é feita uma iteração, no qual o password passa pela função de validator. Dentro do validator, itera-se sobre a string, verificando se a quantidade de caracteres satisfaz a regra.
+2. Na função `ProcessPassword`, será feita uma iteração sobre que irá verificar a senha contra um Map com funções o qual denominei Validators.
 
-3.
+```go
+for _, r := range rules {
+		if validator, exist := validators.Validators[r.Rule]; exist {
+			if !validator(password, r.Value) {
+				noMatch = append(noMatch, &r.Rule)
+				verify = false
+			}
+		} else {
+			errMessage := "Unexistent rule: " + r.Rule
+			noMatch = append(noMatch, &errMessage)
+		}
+	}
+```
+
+Essa função são executadas e, se retornarem False, adiciona-se o nome da rule na slice do noMatch. Para cada rule é feita uma iteração, no qual o password passa pela função de validator. Caso algum rule não existe, o noMatch irá retornar um elemento da seguinte forma: `Unexistent rule: [rule]`
+
+3. Dentro do validator, itera-se sobre a string, verificando se a quantidade de caracteres satisfaz a regra.
+
+```go
+func checkIfMeetsMinimumCharcodesOnRange(sample string, cType charType, minRequirement int) bool {
+	var equals int = 0
+	runes := []rune(sample)
+	runesLength := len(runes)
+	for i := 0; i < runesLength; i++ {
+		charcode := runes[i]
+		if testRuneForRange(charcode, cType) {
+			equals++
+		}
+	}
+	return equals >= minRequirement
+}
+```
+
+o validator sempre retorna um boolean.
 
 ## Rodando a aplicação
 
