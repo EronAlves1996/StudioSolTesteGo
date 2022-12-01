@@ -66,4 +66,7 @@ var Validators = map[string]func(string, int) bool{
 	"minLowerCase":    minLowerCase,
 	"minDigit":        minDigit,
 	"minSpecialChars": minSpecialChars,
+	"noRepeated": func(s string, i int) bool {
+		return true
+	},
 }
