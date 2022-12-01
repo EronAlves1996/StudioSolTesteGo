@@ -39,10 +39,6 @@ func assertProcessingPassword(got, expect *model.Return, t *testing.T) {
 	if *got.Verify != *expect.Verify {
 		t.Errorf("Expect: %t got %t on Verify", *expect.Verify, *got.Verify)
 	}
-
-	if *got.Verify && len(got.NoMatch) > 0 {
-		t.Errorf("Unconsistent return on noMatch. Expect %v and got %v", expect.NoMatch, got.NoMatch)
-	}
 }
 
 func boolPointer(b bool) *bool {
