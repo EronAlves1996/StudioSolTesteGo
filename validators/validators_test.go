@@ -63,6 +63,10 @@ func TestValidators(t *testing.T) {
 		expect := false
 
 		assert(got, expect, t)
+
+		got2 := Validators["minSpecialChars"]("ThisHave$$$$", 4)
+		expect2 := true
+		assert(got2, expect2, t)
 	})
 }
 
