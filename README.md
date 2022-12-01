@@ -61,7 +61,7 @@ Os bash scripts tem por base o docker, porém são uma forma facilitada de subir
 
 Para executar, só rodar o seguinte comando:
 
-```bash
+```sh
 $ ./dockerize.sh
 ```
 
@@ -69,7 +69,7 @@ O container será construído, ao final será executado e após isso, os rastros
 
 Para controlar a execução da aplicação (parar e continuar) use o docker compose:
 
-```bash
+```sh
 # Para parar a execução da aplicação
 $ docker-compose stop
 
@@ -79,7 +79,7 @@ $ docker-compose start
 
 Para retirada completa dos containers e imagens geradas, basta executar o script bash:
 
-```bash
+```sh
 $ ./undockerize.sh
 ```
 
@@ -87,7 +87,7 @@ $ ./undockerize.sh
 
 A aplicação pode ser construída através de Docker-compose, sendo necessário somente utilizar os comando do docker-compose. Para esse tipo de execução, vestígios de multistaging build não são apagados após a construção das imagens e execução dos containers (consultar o script `dockerize`):
 
-```bash
+```sh
 # Para construir
 $ docker-compose up
 
@@ -99,13 +99,13 @@ $ docker-compose down
 
 A aplicação também pode ser montada sem o docker através de uma sequência de comandos. Primeiro de tudo, as dependências declaradas no `go.mod`devem ser baixadas e consistidas:
 
-```bash
+```sh
 $ go mod tidy
 ```
 
 Após isso, basta executar diretamente o arquivo server.go:
 
-```bash
+```sh
 $ go run server.go
 ```
 
