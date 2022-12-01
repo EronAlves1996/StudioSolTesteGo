@@ -9,7 +9,7 @@ import (
 func TestProcessPassword(t *testing.T) {
 	t.Run("Test processing password with upperCase rule", func(t *testing.T) {
 		rules := []*model.Rule{}
-		rules = append(rules, &model.Rule{Rule: "toUpperCase", Value: 2})
+		rules = append(rules, &model.Rule{Rule: "minUpperCase", Value: 2})
 
 		got := ProcessPassword("WithTwoUpperacase", rules)
 		expect := &model.Return{
@@ -17,13 +17,27 @@ func TestProcessPassword(t *testing.T) {
 			NoMatch: []*string{},
 		}
 
+		assertProcessingPassword(got, expect, t)
+	})
+
+	t.Run("Test processing password with upperCase and digit rule", func(t *testing.T) {
+		rules := []*model.Rule{}
+		rules = append(rules, &model.Rule{Rule: "minUppercase", Value: 5}, &model.Rule{Rule: "minDigit", Value: 3})
+
+		got := ProcessPassword("WithTwoUpperacaseand123", rules)
+		expect := &model.Return{
+			Verify:  boolPointer(false),
+			NoMatch: []*string{},
+		}
+
+		assertProcessingPassword(got, expect, t)
 	})
 }
 
 func assertProcessingPassword(got, expect *model.Return, t *testing.T) {
 	t.Helper()
 	if *got.Verify != *expect.Verify {
-		t.Errorf("Expect: %t got %t on Verify", *got.Verify, *expect.Verify)
+		t.Errorf("Expect: %t got %t on Verify", *expect.Verify, *got.Verify)
 	}
 
 	if *got.Verify && len(got.NoMatch) > 0 {

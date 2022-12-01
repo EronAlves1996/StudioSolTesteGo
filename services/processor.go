@@ -15,6 +15,9 @@ func ProcessPassword(password string, rules []*model.Rule) *model.Return {
 				noMatch = append(noMatch, &r.Rule)
 				verify = false
 			}
+		} else {
+			errMessage := "Unexistent rule: " + r.Rule
+			noMatch = append(noMatch, &errMessage)
 		}
 	}
 
