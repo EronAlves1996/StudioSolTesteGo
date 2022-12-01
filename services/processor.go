@@ -11,7 +11,7 @@ func ProcessPassword(password string, rules []*model.Rule) *model.Return {
 
 	for _, r := range rules {
 		if validator, exist := validators.Validators[r.Rule]; exist {
-			if validator(password, r.Value) {
+			if !validator(password, r.Value) {
 				noMatch = append(noMatch, &r.Rule)
 				verify = false
 			}
