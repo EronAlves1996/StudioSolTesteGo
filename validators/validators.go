@@ -1,20 +1,31 @@
 package validators
 
+type charType struct {
+	lowerLim int32
+	upperLim int32
+}
+
+var charTypeMap = map[string]charType{
+	"lowerCase": {lowerLim: 97, upperLim: 122},
+	"upperCase": {lowerLim: 65, upperLim: 90},
+	"digit":     {lowerLim: 48, upperLim: 57},
+}
+
 func minSize(sample string, value int) bool {
 	return len([]rune(sample)) >= value
 }
 
-func testRuneForRange(charcode rune, lowerLim int32, upperLim int32) bool {
-	return charcode >= lowerLim && charcode <= upperLim
+func testRuneForRange(charcode rune, cType charType) bool {
+	return charcode >= cType.lowerLim && charcode <= cType.upperLim
 }
 
-func checkIfMeetsMinimumCharcodesOnRange(sample string, lowerLim, upperLim int32, minRequirement int) bool {
+func checkIfMeetsMinimumCharcodesOnRange(sample string, cType charType, minRequirement int) bool {
 	var equals int = 0
 	runes := []rune(sample)
 	runesLength := len(runes)
 	for i := 0; i < runesLength; i++ {
 		charcode := runes[i]
-		if testRuneForRange(charcode, lowerLim, upperLim) {
+		if testRuneForRange(charcode, cType) {
 			equals++
 		}
 	}
@@ -22,15 +33,15 @@ func checkIfMeetsMinimumCharcodesOnRange(sample string, lowerLim, upperLim int32
 }
 
 func minLowerCase(sample string, value int) bool {
-	return checkIfMeetsMinimumCharcodesOnRange(sample, 97, 122, value)
+	return checkIfMeetsMinimumCharcodesOnRange(sample, charTypeMap["lowerCase"], value)
 }
 
 func minUppercase(sample string, value int) bool {
-	return checkIfMeetsMinimumCharcodesOnRange(sample, 65, 90, value)
+	return checkIfMeetsMinimumCharcodesOnRange(sample, charTypeMap["upperCase"], value)
 }
 
 func minDigit(sample string, value int) bool {
-	return checkIfMeetsMinimumCharcodesOnRange(sample, 48, 57, value)
+	return checkIfMeetsMinimumCharcodesOnRange(sample, charTypeMap["digit"], value)
 }
 
 func minSpecialChars(sample string, value int) bool {
@@ -39,7 +50,9 @@ func minSpecialChars(sample string, value int) bool {
 	runesLength := len(runes)
 	for i := 0; i < runesLength; i++ {
 		charcode := runes[i]
-		if !testRuneForRange(charcode, 92, 122) && !testRuneForRange(charcode, 65, 90) && !testRuneForRange(charcode, 48, 57) {
+		if !testRuneForRange(charcode, charTypeMap["lowerCase"]) &&
+			!testRuneForRange(charcode, charTypeMap["upperCase"]) &&
+			!testRuneForRange(charcode, charTypeMap["digit"]) {
 			equals++
 		}
 	}
