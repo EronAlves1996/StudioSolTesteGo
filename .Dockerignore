@@ -1,0 +1,4 @@
+Dockerfile
+go.sum
+.gitignore
+docker-compose.yml
