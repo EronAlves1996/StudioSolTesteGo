@@ -45,6 +45,25 @@ func TestValidators(t *testing.T) {
 		expect := false
 		assert(got, expect, t)
 	})
+
+	t.Run("test minDigit with 3 digits", func(t *testing.T) {
+		got := Validators["minDigit"]("Thishave123", 3)
+		expect := true
+
+		assert(got, expect, t)
+
+		got2 := Validators["minDigit"]("ThisNotHave3", 3)
+		expect2 := false
+
+		assert(got2, expect2, t)
+	})
+
+	t.Run("test minSpecialChars with 4 special chars", func(t *testing.T) {
+		got := Validators["minSpecialChars"]("ThisHave[]onlyChars", 4)
+		expect := false
+
+		assert(got, expect, t)
+	})
 }
 
 func assert(got bool, expect bool, t *testing.T) {
