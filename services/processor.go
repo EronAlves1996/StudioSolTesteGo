@@ -10,9 +10,11 @@ func processPassword(password string, rules []*model.Rule) *model.Return {
 	var verify bool = true
 
 	for _, r := range rules {
-		if !validators.Validators[r.Rule](password, r.Value) {
-			noMatch = append(noMatch, &r.Rule)
-			verify = false
+		if validator, exist := validators.Validators[r.Rule]; exist {
+			if validator(password, r.Value) {
+				noMatch = append(noMatch, &r.Rule)
+				verify = false
+			}
 		}
 	}
 
