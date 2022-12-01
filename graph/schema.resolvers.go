@@ -5,15 +5,16 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/EronAlves1996/GoTeste/graph/generated"
 	"github.com/EronAlves1996/GoTeste/graph/model"
+	"github.com/EronAlves1996/GoTeste/services"
 )
 
 // Verify is the resolver for the verify field.
 func (r *queryResolver) Verify(ctx context.Context, password string, rules []*model.Rule) (*model.Return, error) {
-	panic(fmt.Errorf("not implemented: Verify - verify"))
+	verify := services.ProcessPassword(password, rules)
+	return verify, nil
 }
 
 // Query returns generated.QueryResolver implementation.
