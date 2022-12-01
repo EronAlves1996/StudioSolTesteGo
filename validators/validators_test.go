@@ -33,6 +33,18 @@ func TestValidators(t *testing.T) {
 		expect := true
 		assert(got, expect, t)
 	})
+
+	t.Run("test minLowercase with 6 characters", func(t *testing.T) {
+		got := Validators["minLowerCase"]("IhavesTHeexpectect", 6)
+		expect := true
+		assert(got, expect, t)
+	})
+
+	t.Run("test minLowercase with 12 characters", func(t *testing.T) {
+		got := Validators["minLowerCase"]("IdontHaveMINIMUMCHARS", 12)
+		expect := false
+		assert(got, expect, t)
+	})
 }
 
 func assert(got bool, expect bool, t *testing.T) {

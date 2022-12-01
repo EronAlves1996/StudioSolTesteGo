@@ -1,23 +1,31 @@
 package validators
 
-import "strings"
-
 func minSize(sample string, value int) bool {
 	return len([]rune(sample)) >= value
 }
 
-func minUppercase(sample string, value int) bool {
+func checkIfMeetsMinimumCharcodesOnRange(sample string, lowerLim, upperLim int32, minRequirement int) bool {
 	var equals int = 0
-	for i := 0; i < len(strings.Split(sample, "")); i++ {
-		charcode := []rune(sample)[i]
-		if charcode >= 65 && charcode <= 90 {
+	runes := []rune(sample)
+	for i := 0; i < len(runes); i++ {
+		charcode := runes[i]
+		if charcode >= lowerLim && charcode <= upperLim {
 			equals++
 		}
 	}
-	return value <= equals
+	return equals >= minRequirement
+}
+
+func minLowerCase(sample string, value int) bool {
+	return checkIfMeetsMinimumCharcodesOnRange(sample, 97, 122, value)
+}
+
+func minUppercase(sample string, value int) bool {
+	return checkIfMeetsMinimumCharcodesOnRange(sample, 65, 90, value)
 }
 
 var Validators = map[string]func(string, int) bool{
 	"minSize":      minSize,
 	"minUppercase": minUppercase,
+	"minLowerCase": minLowerCase,
 }
