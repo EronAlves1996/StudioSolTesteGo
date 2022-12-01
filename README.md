@@ -63,7 +63,7 @@ for _, r := range rules {
 	}
 ```
 
-Essa função são executadas e, se retornarem False, adiciona-se o nome da rule na slice do noMatch. Para cada rule é feita uma iteração, no qual o password passa pela função de validator. Caso algum rule não existe, o noMatch irá retornar um elemento da seguinte forma: `Unexistent rule: [rule]`
+Essa função são executadas e, se retornarem False, adiciona-se o nome da rule na slice do noMatch. Para cada rule é feita uma iteração, no qual o password passa pela função de validator. Caso algum rule não existe, o noMatch irá retornar um elemento da seguinte forma: `Unexistent rule: [rule]`. A única regra que será ignorada por completo, conforme descrito no teste é a regra "noRepeated".
 
 3. Dentro do validator, itera-se sobre a string, verificando se a quantidade de caracteres satisfaz a regra.
 
