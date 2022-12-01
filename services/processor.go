@@ -5,6 +5,7 @@ import (
 	"github.com/EronAlves1996/GoTeste/services/validators"
 )
 
+// Process the password against the rules informed, iterating it against Validators
 func ProcessPassword(password string, rules []*model.Rule) *model.Return {
 	var noMatch = []*string{}
 	var verify bool = true

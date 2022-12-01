@@ -84,6 +84,16 @@ func checkIfMeetsMinimumCharcodesOnRange(sample string, cType charType, minRequi
 
 o validator sempre retorna um boolean.
 
+**Observação:** Para mais detalhes da documentação/código, execute:
+
+```bash
+$ godoc -http :8000
+```
+
+Abra o navegador e acesse `http://localhost:8000/pkg`.
+
+Todos os packages podem ser acesados na sessão Third-Party da documentação.
+
 ## Rodando a aplicação
 
 A aplicação pode ser rodada de algumas formas. Foi feita uma dockerização da aplicação para facilitar o deploy. Estarão listadas da forma mais simples para a mais complexa.

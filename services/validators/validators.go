@@ -59,6 +59,7 @@ func minSpecialChars(sample string, value int) bool {
 	return equals >= value
 }
 
+// Map that describes the keys that corresponds to the validator function and return a boolean
 var Validators = map[string]func(string, int) bool{
 	"minSize":         minSize,
 	"minUppercase":    minUppercase,
