@@ -20,6 +20,19 @@ func TestValidators(t *testing.T) {
 		expect := true
 		assert(got, expect, t)
 	})
+
+	t.Run("test minUppercase with 2 characters", func(t *testing.T) {
+		got := Validators["minUppercase"]("Ithavenoneupperacse", 2)
+		expect := false
+
+		assert(got, expect, t)
+	})
+
+	t.Run("test minUppercase with 5 characters", func(t *testing.T) {
+		got := Validators["minUppercase"]("ITHAVE5uppeCASAcase", 5)
+		expect := true
+		assert(got, expect, t)
+	})
 }
 
 func assert(got bool, expect bool, t *testing.T) {
