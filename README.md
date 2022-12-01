@@ -1,6 +1,12 @@
 # Teste Studio Sol
 
 Este aplicativo foi feito conforme requerimentos para o processo seletivo da Studio Sol.
+O servidor foi escrito para suportar requisições GraphQL.
+
+## Stack
+
+- Go
+- Gqlgen
 
 ## Endpoints
 
@@ -8,6 +14,42 @@ Com a aplicação em execução, segue os endpoints disponíveis para acesso aos
 
 - GraphiQL: `http://localhost:8080/`
 - Para realizar requisições: `http://localhost:8080/graphql`
+
+## Lógica de execução
+
+1. Primeiramente, o servidor somente possui um schema o qual ele suporta. No seguinte formato:
+
+```graphql
+
+query {
+    verify(password: String!, rules: [Rule!]): Return
+}
+
+```
+
+O tipo Rule é descrito da seguinte forma:
+
+```graphql
+input Rule {
+  rule: String!
+  value: Int!
+}
+```
+
+O tipo Return é descrito da seguinte forma:
+
+```graphql
+type Return {
+  verify: Boolean
+  noMatch: [String]
+}
+```
+
+Este schema está descrito melhor no arquivo /graph/schema.graphqls. O servidor irá receber esta requisição e passar a informação dos parâmetros `password` e `rules` para a função ProcessPassword, dentro do package `services`.
+
+2. e irá verificar a senha contra um Map com funções o qual denominei Validators. Essa função são executadas e, se retornarem False, adiciona-se o nome da rule na slice do noMatch. Para cada rule é feita uma iteração, no qual o password passa pela função de validator. Dentro do validator, itera-se sobre a string, verificando se a quantidade de caracteres satisfaz a regra.
+
+3.
 
 ## Rodando a aplicação
 
