@@ -7,12 +7,10 @@ func minSize(sample string, value int) bool {
 }
 
 func minUppercase(sample string, value int) bool {
-	toCompare := strings.Split(strings.ToUpper(sample), "")
-	sampleSplitted := strings.Split(sample, "")
 	var equals int = 0
-
-	for i := 0; i < len(toCompare); i++ {
-		if toCompare[i] == sampleSplitted[i] {
+	for i := 0; i < len(strings.Split(sample, "")); i++ {
+		charcode := []rune(sample)[i]
+		if charcode >= 65 && charcode <= 90 {
 			equals++
 		}
 	}
